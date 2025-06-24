@@ -29,7 +29,7 @@ export const useAuth = () => {
   return context;
 };
 
-const API_URL = "https://crudcrud.com/api/26bf2f7a3837464499f99d7c10278cbd/users";
+const API_URL = "https://685a8eba9f6ef9611156e379.mockapi.io/users/users";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const user = users.find((u: any) => u.email === email && u.password === password);
       if (user) {
         setUser({
-          id: user._id,
+          id: user.id,
           name: user.name || "",
           email: user.email,
           avatar: user.avatar,
@@ -86,7 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (!res.ok) throw new Error("Failed to create account");
       const user = await res.json();
       setUser({
-        id: user._id,
+        id: user.id,
         name: user.name,
         email: user.email,
         avatar: user.avatar,
