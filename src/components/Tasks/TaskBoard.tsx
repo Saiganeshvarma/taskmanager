@@ -106,18 +106,18 @@ const TaskBoard: React.FC = () => {
                         {tasksByStatus[column.id].length}
                       </span>
                     </div>
-                    <div className="space-y-4">
+                    <div className="flex flex-col gap-4 w-full">
                       {tasksByStatus[column.id].map((task, idx) => (
                         <Draggable draggableId={String(task.id)} index={idx} key={task.id}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
                               {...provided.draggableProps}
-                              className={`transition-all duration-200 ${
+                              className={`w-full transition-all duration-200 ${
                                 snapshot.isDragging ? 'opacity-75 scale-105' : ''
                               }`}
                             >
-                              <div className="flex items-center group">
+                              <div className="flex items-center group w-full">
                                 <span
                                   {...provided.dragHandleProps}
                                   className="cursor-grab mr-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"

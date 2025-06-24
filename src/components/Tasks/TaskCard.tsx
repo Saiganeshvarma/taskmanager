@@ -106,49 +106,50 @@ const TaskCard: React.FC<TaskCardProps> = ({
               </div>
             </div>
           )}
-        </div>
 
-        {!isCompact && (
-          <div className="flex items-center gap-1">
-            {onStatusChange && (
-              <select
-                value={task.status}
-                onChange={(e) => onStatusChange(task.id, e.target.value as Task['status'])}
-                className="text-sm border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white shadow-sm"
-              >
-                <option value="todo">To Do</option>
-                <option value="in-progress">In Progress</option>
-                <option value="done">Done</option>
-              </select>
-            )}
-            <div className="flex items-center gap-1 opacity-0 group-hover/card:opacity-100 transition-opacity">
-              {onEdit && (
-                <button
-                  className="p-1.5 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
-                  onClick={() => onEdit(task)}
-                  title="Edit Task"
+          {/* Controls row - always below main content */}
+          {!isCompact && (
+            <div className="flex items-center gap-2 mt-4">
+              {onStatusChange && (
+                <select
+                  value={task.status}
+                  onChange={(e) => onStatusChange(task.id, e.target.value as Task['status'])}
+                  className="text-sm border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white shadow-sm"
                 >
-                  <Edit2 className="h-4 w-4" />
-                </button>
+                  <option value="todo">To Do</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="done">Done</option>
+                </select>
               )}
               {onDelete && (
                 <button
-                  className="p-1.5 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                  className="p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-sm"
                   onClick={() => onDelete(task.id)}
                   title="Delete Task"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
               )}
-              <button 
-                className="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
-                title="More Options"
-              >
-                <MoreHorizontal className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-1 opacity-0 group-hover/card:opacity-100 transition-opacity">
+                {onEdit && (
+                  <button
+                    className="p-1.5 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+                    onClick={() => onEdit(task)}
+                    title="Edit Task"
+                  >
+                    <Edit2 className="h-4 w-4" />
+                  </button>
+                )}
+                <button 
+                  className="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+                  title="More Options"
+                >
+                  <MoreHorizontal className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
