@@ -51,8 +51,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const users = await res.json();
       const user = users.find((u: any) => u.email === email && u.password === password);
       if (user) {
-        // Only use avatar if it is a data URL (user-uploaded), otherwise ignore
-        const avatar = user.avatar && user.avatar.startsWith('data:') ? user.avatar : undefined;
+        // Only use avatar from API if it is a data URL (user-uploaded), otherwise ignore
+        let avatar = user.avatar && user.avatar.startsWith('data:') ? user.avatar : undefined;
         setUser({
           id: user.id,
           name: user.name || "",
@@ -107,11 +107,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('user');
   };
 
-  const updateProfile = (updates: Partial<User>) => {
+  const updateProfile = async (updates: Partial<User>) => {
     if (user) {
       const updatedUser = { ...user, ...updates };
-      setUser(updatedUser);
-      localStorage.setItem('user', JSON.stringify(updatedUser));
+      // Send PATCH request to API
+      try {
+        const res = await fetch(`${API_URL}/${user.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updates),
+        });
+        if (!res.ok) throw new Error('Failed to update profile');
+        const apiUser = await res.json();
+        setUser(apiUser);
+        localStorage.setItem('user', JSON.stringify(apiUser));
+      } catch (e) {
+        // fallback to local update if API fails
+        setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      }
     }
   };
 
