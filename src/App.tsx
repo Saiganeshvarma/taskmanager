@@ -11,6 +11,7 @@ import DailyUpdates from './components/Updates/DailyUpdates';
 import Analytics from './components/Analytics/Analytics';
 import Achievements from './components/Achievements/Achievements';
 import Profile from './components/Profile/Profile';
+import CalendarView from './components/Tasks/CalendarView';
 
 const AppContent: React.FC = () => {
   const { user, isLoading } = useAuth();
@@ -53,6 +54,8 @@ const AppContent: React.FC = () => {
         return <Achievements />;
       case 'profile':
         return <Profile onClose={() => setShowProfile(false)} />;
+      case 'calendar':
+        return <CalendarView />;
       default:
         return null;
     }
