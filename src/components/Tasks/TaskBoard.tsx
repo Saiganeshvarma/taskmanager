@@ -50,14 +50,14 @@ const TaskBoard: React.FC = () => {
   };
 
   return (
-    <div className="p-8 min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="p-8 min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-[1800px] mx-auto">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-300 dark:to-blue-300">
               Task Board
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 dark:text-gray-300 text-lg">
               Manage and organize your tasks efficiently
             </p>
           </div>
@@ -69,19 +69,19 @@ const TaskBoard: React.FC = () => {
                 placeholder="Search tasks..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 backdrop-blur-sm"
+                className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-900 dark:text-gray-100"
               />
             </div>
             <button
               onClick={() => setShowTaskForm(true)}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-xl font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 whitespace-nowrap"
+              className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 text-white px-6 py-2 rounded-xl font-medium hover:from-purple-700 hover:to-blue-700 dark:hover:from-purple-500 dark:hover:to-blue-500 transition-all duration-200 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 whitespace-nowrap"
             >
               <Plus className="h-5 w-5" />
               Add Task
             </button>
             <button
               onClick={handleClearAllTasks}
-              className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-2 rounded-xl font-medium hover:from-red-600 hover:to-pink-600 transition-all duration-200 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 whitespace-nowrap"
+              className="bg-gradient-to-r from-red-500 to-pink-500 dark:from-red-400 dark:to-pink-400 text-white px-6 py-2 rounded-xl font-medium hover:from-red-600 hover:to-pink-600 dark:hover:from-red-500 dark:hover:to-pink-500 transition-all duration-200 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 whitespace-nowrap"
             >
               Clear All Tasks
             </button>
@@ -96,13 +96,13 @@ const TaskBoard: React.FC = () => {
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className={`bg-gradient-to-br ${column.color} backdrop-blur-xl rounded-2xl p-6 min-h-[calc(100vh-12rem)] shadow-lg border border-white/30 transition-all duration-200 ${
+                    className={`bg-gradient-to-br ${column.color} dark:from-gray-800 dark:to-gray-900 backdrop-blur-xl rounded-2xl p-6 min-h-[calc(100vh-12rem)] shadow-lg border border-white/30 dark:border-gray-700 transition-all duration-200 ${
                       snapshot.isDraggingOver ? 'ring-2 ring-purple-400 scale-[1.02]' : ''
                     }`}
                   >
                     <div className="flex items-center justify-between mb-6">
-                      <h3 className="font-bold text-gray-900 text-xl">{column.title}</h3>
-                      <span className="bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-gray-600 shadow-sm">
+                      <h3 className="font-bold text-gray-900 dark:text-gray-100 text-xl">{column.title}</h3>
+                      <span className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 shadow-sm">
                         {tasksByStatus[column.id].length}
                       </span>
                     </div>
@@ -140,7 +140,7 @@ const TaskBoard: React.FC = () => {
                       {provided.placeholder}
                       {tasksByStatus[column.id].length === 0 && (
                         <div className="text-center py-12">
-                          <p className="text-gray-500 text-sm">No tasks in {column.title.toLowerCase()}</p>
+                          <p className="text-gray-500 dark:text-gray-400 text-sm">No tasks in {column.title.toLowerCase()}</p>
                         </div>
                       )}
                     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Search, Settings, User } from 'lucide-react';
+import { Bell, Search, Settings, User, Moon, Sun } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 interface HeaderProps {
@@ -8,6 +8,22 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onProfileClick }) => {
   const { user, logout } = useAuth();
+  const [darkMode, setDarkMode] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark';
+    }
+    return false;
+  });
+
+  React.useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [darkMode]);
 
   return (
     <header className="bg-white/90 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50">
@@ -38,6 +54,14 @@ const Header: React.FC<HeaderProps> = ({ onProfileClick }) => {
           </div>
 
           <div className="flex items-center space-x-4">
+            <button
+              className="p-2 rounded-lg transition-colors duration-200 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 shadow"
+              onClick={() => setDarkMode((prev) => !prev)}
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
+            
             <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">
               <Bell className="h-5 w-5" />
             </button>
