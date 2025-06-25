@@ -51,7 +51,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
         bg-white rounded-2xl shadow-sm border-l-4 transition-all duration-200
         ${statusColors[task.status]}
         ${isHovered ? 'shadow-lg scale-[1.02]' : ''}
-        p-5 font-sans relative group/card
+        p-3 sm:p-5 font-sans relative group/card text-sm sm:text-base
       `}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

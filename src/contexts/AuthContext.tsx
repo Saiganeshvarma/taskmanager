@@ -51,16 +51,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const users = await res.json();
       const user = users.find((u: any) => u.email === email && u.password === password);
       if (user) {
+        // Only use avatar if it is a data URL (user-uploaded), otherwise ignore
+        const avatar = user.avatar && user.avatar.startsWith('data:') ? user.avatar : undefined;
         setUser({
           id: user.id,
           name: user.name || "",
           email: user.email,
-          avatar: user.avatar,
+          avatar,
           bio: user.bio,
           theme: user.theme || "light",
           joinDate: user.joinDate || new Date().toISOString(),
         });
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify({ ...user, avatar }));
       } else {
         throw new Error("Invalid email or password");
       }
@@ -89,12 +91,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: user.id,
         name: user.name,
         email: user.email,
-        avatar: user.avatar,
+        avatar: user.avatar && user.avatar.startsWith('data:') ? user.avatar : undefined,
         bio: user.bio,
         theme: user.theme,
         joinDate: user.joinDate,
       });
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify({ ...user, avatar: user.avatar && user.avatar.startsWith('data:') ? user.avatar : undefined }));
     } finally {
       setIsLoading(false);
     }
